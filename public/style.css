@@ -8,11 +8,16 @@
   --chat-border-radius: 20px;
 }
 
-html, body {
+html,
+body {
   background-color: var(--dark);
 }
 
-body, button, input, select, textarea {
+body,
+button,
+input,
+select,
+textarea {
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -36,7 +41,7 @@ body, button, input, select, textarea {
 }
 
 .landbot-header {
-  padding: 15px 30px; 
+  padding: 15px 30px;
   background-color: var(--dark-blue-2);
   border-top-left-radius: var(--chat-border-radius);
   border-top-right-radius: var(--chat-border-radius);
@@ -60,12 +65,12 @@ body, button, input, select, textarea {
   border-top: 0;
 }
 
-.landbot-message[data-author="bot"] + .landbot-message[data-author="bot"],
-.landbot-message[data-author="user"] + .landbot-message[data-author="user"] {
+.landbot-message[data-author='bot'] + .landbot-message[data-author='bot'],
+.landbot-message[data-author='user'] + .landbot-message[data-author='user'] {
   margin-top: 3px;
 }
 
-.landbot-message[data-author="user"] {
+.landbot-message[data-author='user'] {
   justify-content: flex-end;
 }
 
@@ -81,12 +86,12 @@ body, button, input, select, textarea {
   flex-grow: 0;
 }
 
-.landbot-message[data-author="bot"] .landbot-message-content {
+.landbot-message[data-author='bot'] .landbot-message-content {
   background-color: var(--dark-blue-2);
-  border-bottom-left-radius: 2px; 
+  border-bottom-left-radius: 2px;
 }
 
-.landbot-message[data-author="user"] .landbot-message-content {
+.landbot-message[data-author='user'] .landbot-message-content {
   background-color: var(--orange);
   border-bottom-right-radius: 2px;
 }

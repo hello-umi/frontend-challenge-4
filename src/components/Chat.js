@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 var core = new window.Landbot.Core({
   firebase: window.firebase,
-  brandID: 12235,
-  channelToken: 'H-441480-B0Q96FP58V53BJ2J',
-  welcomeUrl: 'https://welcome.landbot.io/',
-  welcome: [
-    { samurai: -1, type: 'text', message: 'Type something to start a conversation with landbot.' }
-  ],
+  configUrl: 'https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json',
 });
 
 export default function Chat() {
@@ -15,20 +10,16 @@ export default function Chat() {
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    core.pipelines.$readableSequence.subscribe(data => {
-      setMessages(messages => ({
+    core.pipelines.$readableSequence.subscribe((data) => {
+      setMessages((messages) => ({
         ...messages,
         [data.key]: parseMessage(data),
-      }))
+      }));
     });
 
-    core
-      .init()
-      .then(data => {
-        setMessages(
-          parseMessages(data.messages)
-        );
-      });
+    core.init().then((data) => {
+      setMessages(parseMessages(data.messages));
+    });
   }, []);
 
   useEffect(() => {
@@ -49,11 +40,14 @@ export default function Chat() {
         <h1 className="subtitle">Landbot</h1>
       </div>
 
-      <div id="landbot-messages-container" className="landbot-messages-container">
+      <div
+        id="landbot-messages-container"
+        className="landbot-messages-container"
+      >
         {Object.values(messages)
           .filter(messagesFilter)
           .sort((a, b) => a.timestamp - b.timestamp)
-          .map(message => (
+          .map((message) => (
             <article
               key={message.key}
               data-author={message.author}
@@ -61,7 +55,11 @@ export default function Chat() {
             >
               <figure className="media-left landbot-message-avatar">
                 <p className="image is-64x64">
-                  <img className="is-rounded" src="http://i.pravatar.cc/100" alt="" />
+                  <img
+                    className="is-rounded"
+                    src="http://i.pravatar.cc/100"
+                    alt=""
+                  />
                 </p>
               </figure>
               <div className="media-content landbot-message-content">
@@ -70,8 +68,7 @@ export default function Chat() {
                 </div>
               </div>
             </article>
-          ))
-        }
+          ))}
       </div>
 
       <div className="landbot-input-container">
@@ -82,8 +79,8 @@ export default function Chat() {
               type="text"
               placeholder="Type here..."
               value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyUp={e => {
+              onChange={(e) => setInput(e.target.value)}
+              onKeyUp={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
                   submit();
@@ -107,12 +104,10 @@ export default function Chat() {
 }
 
 function parseMessages(messages) {
-  return Object
-    .values(messages)
-    .reduce((obj, next) => {
-      obj[next.key] = parseMessage(next);
-      return obj;
-    }, {});
+  return Object.values(messages).reduce((obj, next) => {
+    obj[next.key] = parseMessage(next);
+    return obj;
+  }, {});
 }
 
 function parseMessage(data) {
